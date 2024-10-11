@@ -3,7 +3,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
-  buildModules: ["@nuxtjs/svg"],
+  modules: ["@nuxtjs/svg", "@vite-pwa/nuxt"],
 
   pwa: {
     /* PWA options */
@@ -81,8 +81,6 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-
-  modules: ["@vite-pwa/nuxt"],
 
   typescript: {
     shim: false,

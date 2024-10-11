@@ -3,6 +3,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
+
   pwa: {
     /* PWA options */
     manifest: {
@@ -38,7 +39,7 @@ export default defineNuxtConfig({
     workbox: {
       navigateFallback: "/", // Fallback to index.html
       globPatterns: [
-        "**/*.{js,css,html,png,jpg,jpeg,svg,woff2,woff,ttf,eot,webmanifest}",
+        "**/*.{js,svg,css,html,png,jpg,jpeg,svg,woff2,woff,ttf,eot,webmanifest}",
       ],
     },
     client: {
@@ -51,19 +52,25 @@ export default defineNuxtConfig({
     },
     registerType: "autoUpdate",
   },
+
   nitro: {
     prerender: {
       routes: ["/", "/about"],
     },
   },
+
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
   },
+
   modules: ["@vite-pwa/nuxt"],
+
   typescript: {
     shim: false,
   },
+
+  compatibilityDate: "2024-10-11",
 });

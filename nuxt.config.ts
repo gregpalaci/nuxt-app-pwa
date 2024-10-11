@@ -43,7 +43,7 @@ export default defineNuxtConfig({
       runtimeCaching: [
         {
           urlPattern: ({ request }) => request.destination === "image",
-          handler: "StaleWhileRevalidate",
+          handler: "CacheFirst",
           options: {
             cacheName: "images-cache",
             expiration: {
@@ -52,7 +52,7 @@ export default defineNuxtConfig({
           },
         },
       ],
-      navigateFallback: "/", // Fallback to index.html
+      // navigateFallback: "/", // Fallback to index.html
       globDirectory: ".",
       globPatterns: [
         "**/*.{js,svg,css,html,png,jpg,jpeg,svg,woff2,woff,ttf,eot,webmanifest}",

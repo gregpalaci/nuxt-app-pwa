@@ -3,9 +3,11 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
+  buildModules: ["@nuxtjs/svg"],
 
   pwa: {
     /* PWA options */
+
     manifest: {
       name: "My Nuxt PWA",
       short_name: "Nuxt PWA",
@@ -37,6 +39,18 @@ export default defineNuxtConfig({
       ],
     },
     workbox: {
+      runtimeCaching: [
+        {
+          urlPattern: ({ request }) => request.destination === "image",
+          handler: "StaleWhileRevalidate",
+          options: {
+            cacheName: "images-cache",
+            expiration: {
+              maxEntries: 10,
+            },
+          },
+        },
+      ],
       navigateFallback: "/", // Fallback to index.html
       globPatterns: [
         "**/*.{js,svg,css,html,png,jpg,jpeg,svg,woff2,woff,ttf,eot,webmanifest}",
@@ -50,11 +64,13 @@ export default defineNuxtConfig({
       enabled: true,
       navigateFallbackAllowlist: [/^\/$/],
     },
+    // base: "/",
     registerType: "autoUpdate",
   },
 
   nitro: {
     prerender: {
+      crawlLinks: true,
       routes: ["/", "/about"],
     },
   },

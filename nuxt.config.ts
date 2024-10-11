@@ -1,9 +1,10 @@
 // ./nuxt.config.ts
 // https://nuxt.com/docs/api/configuration/nuxt-config
+// import { request } from "path";
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
-  modules: ["@nuxtjs/svg", "@vite-pwa/nuxt"],
+  modules: ["@vite-pwa/nuxt", "nuxt-svgo-loader"],
 
   pwa: {
     /* PWA options */
@@ -52,6 +53,7 @@ export default defineNuxtConfig({
         },
       ],
       navigateFallback: "/", // Fallback to index.html
+      globDirectory: ".",
       globPatterns: [
         "**/*.{js,svg,css,html,png,jpg,jpeg,svg,woff2,woff,ttf,eot,webmanifest}",
       ],

@@ -1,3 +1,4 @@
+import { PrecacheRouteOptions } from "./node_modules/workbox-precaching/_types.d";
 // ./nuxt.config.ts
 // https://nuxt.com/docs/api/configuration/nuxt-config
 // import { request } from "path";
@@ -39,7 +40,9 @@ export default defineNuxtConfig({
         },
       ],
     },
+
     workbox: {
+      cacheId: "qr",
       runtimeCaching: [
         {
           urlPattern: ({ request }) => request.destination === "image",
@@ -51,9 +54,19 @@ export default defineNuxtConfig({
             },
           },
         },
+        {
+          urlPattern: ({ request }) => request.destination === "style",
+          handler: "CacheFirst",
+          options: {
+            cacheName: "style-cache",
+            expiration: {
+              maxEntries: 10,
+            },
+          },
+        },
       ],
-      // navigateFallback: "/", // Fallback to index.html
-      globDirectory: ".",
+      navigateFallback: "/", // Fallback to index.html
+
       globPatterns: [
         "**/*.{js,svg,css,html,png,jpg,jpeg,svg,woff2,woff,ttf,eot,webmanifest}",
       ],
@@ -66,7 +79,7 @@ export default defineNuxtConfig({
       enabled: true,
       navigateFallbackAllowlist: [/^\/$/],
     },
-    // base: "/",
+    base: "/",
     registerType: "autoUpdate",
   },
 

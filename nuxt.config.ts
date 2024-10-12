@@ -1,11 +1,10 @@
-import { PrecacheRouteOptions } from "./node_modules/workbox-precaching/_types.d";
 // ./nuxt.config.ts
 // https://nuxt.com/docs/api/configuration/nuxt-config
 // import { request } from "path";
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
-  modules: ["@vite-pwa/nuxt", "nuxt-svgo-loader"],
+  modules: ["@vite-pwa/nuxt", "nuxt-svgo-loader", "@vueuse/nuxt"],
 
   pwa: {
     /* PWA options */
@@ -51,6 +50,16 @@ export default defineNuxtConfig({
             cacheName: "images-cache",
             expiration: {
               maxEntries: 10,
+            },
+          },
+        },
+        {
+          urlPattern: ({ request }) => request.destination === "script",
+          handler: "CacheFirst",
+          options: {
+            cacheName: "script-cache",
+            expiration: {
+              maxEntries: 100,
             },
           },
         },
